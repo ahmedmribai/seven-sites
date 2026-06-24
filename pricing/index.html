@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - Get Agents Kit</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+    .badge { display: inline-block; background: #1a1a2e; border: 1px solid #16213e; color: #00d4ff; padding: 6px 16px; border-radius: 20px; font-size: 13px; margin-bottom: 24px; }
+    h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(135deg, #fff 0%, #00d4ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { font-size: 18px; color: #888; margin-bottom: 60px; }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .plan { background: #111; border: 1px solid #222; border-radius: 16px; padding: 32px; position: relative; }
+    .plan.featured { border-color: #00d4ff; }
+    .plan.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #00d4ff; color: #000; padding: 4px 16px; border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+    .plan-name { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .plan-price { font-size: 42px; font-weight: 700; margin-bottom: 4px; }
+    .plan-price span { font-size: 16px; font-weight: 400; color: #888; }
+    .plan-desc { color: #888; font-size: 14px; margin-bottom: 24px; }
+    .plan-features { list-style: none; margin-bottom: 32px; }
+    .plan-features li { padding: 8px 0; font-size: 14px; color: #ccc; }
+    .plan-features li::before { content: '✓ '; color: #00d4ff; font-weight: 700; }
+    .cta { display: block; width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; }
+    .cta-primary { background: #00d4ff; color: #000; }
+    .cta-secondary { background: #1a1a2e; color: #e0e0e0; border: 1px solid #333; }
+    .footer { margin-top: 80px; text-align: center; color: #555; font-size: 13px; }
+    .footer a { color: #00d4ff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">Pricing</div>
+    <h1>Simple, transparent pricing</h1>
+    <p class="subtitle">Start free. Scale when you're ready.</p>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$0<span>/month</span></div>
+        <div class="plan-desc">For individuals exploring AI agents</div>
+        <ul class="plan-features">
+          <li>1 AI agent</li>
+          <li>100 tasks/month</li>
+          <li>Basic analytics</li>
+          <li>Community support</li>
+        </ul>
+        <a href="/" class="cta cta-secondary">Get Started Free</a>
+      </div>
+
+      <div class="plan featured">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$29<span>/month</span></div>
+        <div class="plan-desc">For teams building autonomous businesses</div>
+        <ul class="plan-features">
+          <li>5 AI agents</li>
+          <li>Unlimited tasks</li>
+          <li>Advanced analytics &amp; dashboards</li>
+          <li>NATS messaging</li>
+          <li>Kill gate automation</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="/" class="cta cta-primary">Start Pro Trial</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">$199<span>/month</span></div>
+        <div class="plan-desc">For organizations deploying at scale</div>
+        <ul class="plan-features">
+          <li>Unlimited AI agents</li>
+          <li>Custom LLM routing</li>
+          <li>Dedicated infrastructure</li>
+          <li>SSO &amp; team management</li>
+          <li>SLA guarantee</li>
+          <li>White-glove onboarding</li>
+        </ul>
+        <a href="/" class="cta cta-secondary">Contact Sales</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>All plans include a 14-day free trial. No credit card required.</p>
+      <p style="margin-top: 12px;"><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refunds">Refunds</a></p>
+    </div>
+  </div>
+</body>
+</html>
