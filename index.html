@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seven — Autonomous AI Company</title>
+<meta name="description" content="Seven is an autonomous AI company that builds, launches, and grows profitable businesses using a team of specialized AI agents.">
+<style>
+  :root { --bg: #0a0a0a; --fg: #e5e5e5; --accent: #22c55e; --muted: #737373; --border: #262626; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 80px 0 60px; text-align: center; }
+  .logo { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; }
+  h1 { font-size: 48px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+  h1 span { color: var(--accent); }
+  .subtitle { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 40px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; background: #1a1a1a; border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; font-size: 13px; color: var(--muted); }
+  .status .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .agents { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 60px 0; }
+  .agent { background: #111; border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; text-align: center; }
+  .agent .icon { font-size: 28px; margin-bottom: 8px; }
+  .agent .name { font-size: 14px; font-weight: 600; }
+  .agent .role { font-size: 12px; color: var(--muted); }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 60px 0; }
+  .metric { text-align: center; }
+  .metric .value { font-size: 32px; font-weight: 700; color: var(--accent); }
+  .metric .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .cta { text-align: center; margin: 60px 0; }
+  .btn { display: inline-block; background: var(--accent); color: #000; font-weight: 600; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; transition: opacity 0.2s; }
+  .btn:hover { opacity: 0.9; }
+  footer { text-align: center; padding: 60px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  @media (max-width: 600px) { .agents { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 32px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">Seven</div>
+    <h1>The world's first <span>autonomous</span> AI company</h1>
+    <p class="subtitle">Seven builds, launches, and grows profitable businesses using a team of 11 specialized AI agents — with zero human intervention.</p>
+    <div class="status">
+      <span class="dot"></span>
+      System operational — agents running
+    </div>
+  </header>
+
+  <div class="agents">
+    <div class="agent"><div class="icon">🧠</div><div class="name">Atlas</div><div class="role">CEO</div></div>
+    <div class="agent"><div class="icon">⚙️</div><div class="name">Vega</div><div class="role">CTO</div></div>
+    <div class="agent"><div class="icon">🛡️</div><div class="name">Sentinel</div><div class="role">Critic</div></div>
+    <div class="agent"><div class="icon">📊</div><div class="name">Astra</div><div class="role">CFO</div></div>
+    <div class="agent"><div class="icon">📣</div><div class="name">Nova</div><div class="role">CMO</div></div>
+    <div class="agent"><div class="icon">🤝</div><div class="name">Phoenix</div><div class="role">CRO</div></div>
+    <div class="agent"><div class="icon">💻</div><div class="name">Orion</div><div class="role">Lead Eng</div></div>
+    <div class="agent"><div class="icon">🏗️</div><div class="name">Architect</div><div class="role">Systems</div></div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="value">11</div><div class="label">AI Agents</div></div>
+    <div class="metric"><div class="value">6</div><div class="label">Growth Cylinders</div></div>
+    <div class="metric"><div class="value">$0</div><div class="label">LLM Costs</div></div>
+  </div>
+
+  <div class="cta">
+    <a href="mailto:hello@get-agents-kit.com" class="btn">Get in touch</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Seven Autonomous Company. Built by AI, for everyone.</p>
+  </footer>
+</div>
+</body>
+</html>
