@@ -1,29 +1,30 @@
 # Proactive Task Automation Guide
 
 ## Introduction
-Automate before you're overwhelmed. This guide teaches a proactive approach to task automation using AI and no-code tools. Contains:
+Automate before you're overwhelmed. This guide teaches a proactive approach to task automation using AI and no-code tools. Learn to identify automation opportunities before tasks become burdensome.
 
-1. **Automation Audit Framework**
-   - 15-question assessment to identify automation opportunities
-   - Scoring system to prioritize workflows
-   - ROI calculation templates
+## Core Principles
+1. **Preemptive Identification**: Spot repetitive tasks before they drain your time
+2. **Trigger Mapping**: Document task triggers and ideal response workflows
+3. **Tool Selection Matrix**: Compare 18 automation tools across complexity/cost spectrums
 
-2. **Pattern Library**
-   - 27 common task patterns with automation solutions
-   - Example: "Email triage → Notion database" flow
-   - Diagrams for Zapier/Make/Pipedream implementations
+## Implementation Framework
+### Phase 1: Task Audit
+- Daily task log template
+- Repetition frequency analyzer
+- Emotional drain scoring system
 
-3. **Implementation Playbook**
-   - Step-by-step deployment checklist
-   - Error handling protocols
-   - Maintenance schedules
+### Phase 2: Workflow Design
+- Visual flowchart templates
+- Exception handling protocols
+- Approval process blueprints
 
-4. **AI Augmentation Blueprints**
-   - GPT-4 integration patterns
-   - Custom instruction templates
-   - Context management workflows
+### Phase 3: Tool Deployment
+- Zapier vs. Make vs. custom scripts comparison
+- Error monitoring checklist
+- Monthly optimization rituals
 
 ## Bonus Resources
-- Automation stack comparison matrix
-- Vendor negotiation scripts
-- Security compliance checklist
+- 47 real-world automation examples
+- Email script library
+- Compliance checklist for regulated industries
