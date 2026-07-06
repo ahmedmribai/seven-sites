@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmedmribai.github.io/seven-sites/anappthat/sitemap.xml
