@@ -1,0 +1,1 @@
+['1. Obtain API keys from your e-commerce platforms', '2. Configure inventory thresholds and AI settings in the dashboard', '3. Connect warehouse management system (optional)', '4. Set up webhooks for real-time updates or schedule sync intervals', '5. Test with sample data before full deployment']
