@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "event": "charge.succeeded"
+      },
+      "name": "Stripe Trigger",
+      "type": "trigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{json: {licenseKey: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}}];"
+      },
+      "name": "Generate License Key",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "subject": "Your OneTimePurchaseAI License",
+        "text": "Thank you for your purchase! Your license key is: {{$node["Generate License Key"].json["licenseKey"]}}",
+        "to": "={{$node["Stripe Trigger"].json["data"]["object"]["customer_email"]}}"
+      },
+      "name": "SendGrid Email",
+      "type": "n8n-nodes-base.sendGrid",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Stripe Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate License Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate License Key": {
+      "main": [
+        [
+          {
+            "node": "SendGrid Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
