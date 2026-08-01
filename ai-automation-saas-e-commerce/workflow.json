@@ -1,0 +1,91 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAll",
+        "resource": "orders",
+        "options": {}
+      },
+      "name": "Shopify Get Orders",
+      "type": "n8n-nodes-base.shopify",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "classify",
+        "categories": "urgent, standard, bulk",
+        "model": "gpt-3.5-turbo",
+        "input": "={{$node["Shopify Get Orders"].json["order_details"]}}"
+      },
+      "name": "AI Order Classifier",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "condition": "equal",
+              "value1": "={{$node["AI Order Classifier"].json["category"]}}",
+              "value2": "urgent"
+            }
+          ]
+        }
+      },
+      "name": "Priority Router",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "resource": "fulfillments",
+        "operation": "create",
+        "orderId": "={{$node["Shopify Get Orders"].json["id"]}}",
+        "additionalFields": {}
+      },
+      "name": "Fulfillment API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Shopify Get Orders": {
+      "main": [
+        [
+          {
+            "node": "AI Order Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Order Classifier": {
+      "main": [
+        [
+          {
+            "node": "Priority Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Priority Router": {
+      "main": [
+        [
+          {
+            "node": "Fulfillment API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
