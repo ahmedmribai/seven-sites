@@ -1,1 +1,1 @@
-{'endpoint': '/api/inventory-sync', 'methods': ['POST'], 'parameters': {'platform': "string (e.g., 'shopify', 'woocommerce')", 'api_key': 'string (platform API key)', 'threshold': 'number (low-stock alert level)', 'predictive_restock': 'boolean (enable AI suggestions)'}, 'response': {'status': 'string (success/error)', 'synced_items': 'number', 'restock_suggestions': 'array of SKUs with quantities'}}
+POST /api/classify-order - Accepts order JSON, returns { category: string, priority_score: number }
