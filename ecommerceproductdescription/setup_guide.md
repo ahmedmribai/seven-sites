@@ -1,0 +1,1 @@
+1. Import the provided JSON into your n8n instance. 2. Connect your OpenAI API key in the OpenAI node. 3. Configure the Webhook node to receive POST requests. 4. Set up a 'Respond to Webhook' node to return the AI-generated text. 5. Test by sending a JSON payload containing product features.
