@@ -1,6 +1,1 @@
-1. Install n8n
-2. Add WordPress, Medium, and LinkedIn credentials
-3. Import workflow JSON
-4. Configure AI model settings
-5. Set timezone for scheduling
-6. Test with sample post
+1. Import the JSON into n8n. 2. Connect your OpenAI API key in the OpenAI node. 3. Configure your Slack credentials in the Slack node. 4. Set the Webhook URL as your trigger endpoint.
