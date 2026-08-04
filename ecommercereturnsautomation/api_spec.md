@@ -1,0 +1,1 @@
+POST /api/returns - Submit a return request. Requires order ID, product details, and reason for return. Returns a return ID and status.
