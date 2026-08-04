@@ -1,0 +1,1 @@
+1. Sign up for EcommerceReturnsAutomation. 2. Connect your e-commerce platform via API key. 3. Configure return policies and workflows in the dashboard. 4. Integrate the API endpoint into your order management system. 5. Test the setup with a sample return request.
