@@ -1,0 +1,1 @@
+CREATE TABLE usage (id SERIAL PRIMARY KEY, user_id TEXT, translations_used INTEGER DEFAULT 0);CREATE TABLE translations (id SERIAL PRIMARY KEY, text TEXT, language TEXT, translation TEXT);
