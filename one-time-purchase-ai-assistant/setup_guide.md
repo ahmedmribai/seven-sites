@@ -1,0 +1,1 @@
+['1. Deploy the API on your cloud provider', '2. Configure payment gateway connections in config.yml', '3. Set proration rules in the billing module', '4. Whitelist your subscription service IPs', '5. Test with sandbox credentials before production']
