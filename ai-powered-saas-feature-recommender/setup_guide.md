@@ -1,0 +1,1 @@
+['Step 1: Create an account on the FeatureFusion platform and obtain an API key.', 'Step 2: Set up an n8n workflow with the FeatureFusion node.', 'Step 3: Configure the node with your API key and feature set ID.', 'Step 4: Connect the node to your user database or CRM system.', 'Step 5: Test the workflow and verify that feature recommendations are being generated correctly.']
