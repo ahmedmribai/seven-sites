@@ -1,0 +1,1 @@
+{'endpoint': '/convert-to-onetime', 'method': 'POST', 'parameters': {'subscription_id': 'string', 'customer_email': 'string', 'conversion_date': 'YYYY-MM-DD', 'proration_method': 'exact_days|full_month'}, 'response': {'one_time_id': 'string', 'amount_charged': 'float', 'receipt_url': 'string'}}
