@@ -1,4 +1,1 @@
-Endpoint: POST /leads
-Description: Submit lead details for processing and enrichment.
-Parameters: firstName, lastName, email, phone, companyName
-Response: enrichedLeadData
+{'endpoint': '/api/v1/leads', 'methods': ['POST'], 'parameters': {'query': 'Search term (company name, industry, etc.)', 'location': 'Geographic filter', 'max_results': 'Number of leads to return'}, 'response': {'name': 'string', 'email': 'string', 'company': 'string', 'job_title': 'string', 'social_profiles': 'array'}}
