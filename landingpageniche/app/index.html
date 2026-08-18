@@ -1,73 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LandingPageNiche</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-  .hero { background: #007BFF; color: white; padding: 60px 20px; text-align: center; }
-  .hero h1 { font-size: 2.5rem; margin: 0; }
-  .hero p { font-size: 1.2rem; margin: 20px 0; }
-  .hero .cta { background: #FFC107; color: black; padding: 10px 20px; border: none; font-size: 1rem; cursor: pointer; }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 40px 20px; }
-  .feature { text-align: center; }
-  .feature img { width: 50px; height: 50px; }
-  .how-it-works { padding: 40px 20px; text-align: center; }
-  .how-it-works img { width: 100%; max-width: 600px; }
-  .pricing { padding: 40px 20px; text-align: center; }
-  .pricing table { width: 100%; max-width: 800px; margin: 0 auto; border-collapse: collapse; }
-  .pricing table td, .pricing table th { border: 1px solid #ddd; padding: 8px; }
-  .footer { background: #333; color: white; padding: 20px; text-align: center; }
-  .footer a { color: #FFC107; text-decoration: none; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LandingPageNiche</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .hero {
+      background: #007BFF;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero .cta-button {
+      background: #FFC107;
+      color: black;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .feature-card {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .how-it-works {
+      padding: 2rem;
+      text-align: center;
+    }
+    .how-it-works img {
+      max-width: 100%;
+      height: auto;
+    }
+    .pricing {
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .footer a {
+      color: #FFC107;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
   <div class="hero">
     <h1>Your Value Proposition Here</h1>
-    <p>A short description of your product or service.</p>
-    <button class="cta">Get Started</button>
+    <button class="cta-button">Get Started</button>
   </div>
   <div class="features">
-    <div class="feature">
-      <img src="https://via.placeholder.com/50" alt="Feature 1">
-      <h2>Feature 1</h2>
-      <p>Description of feature 1.</p>
-    </div>
-    <div class="feature">
-      <img src="https://via.placeholder.com/50" alt="Feature 2">
-      <h2>Feature 2</h2>
-      <p>Description of feature 2.</p>
-    </div>
-    <div class="feature">
-      <img src="https://via.placeholder.com/50" alt="Feature 3">
-      <h2>Feature 3</h2>
-      <p>Description of feature 3.</p>
-    </div>
+    <div class="feature-card">Feature 1</div>
+    <div class="feature-card">Feature 2</div>
+    <div class="feature-card">Feature 3</div>
   </div>
   <div class="how-it-works">
     <h2>How It Works</h2>
-    <img src="https://via.placeholder.com/600x200" alt="How It Works">
+    <img src="https://via.placeholder.com/600x200" alt="How it works">
   </div>
   <div class="pricing">
     <h2>Pricing</h2>
-    <table>
-      <tr>
-        <th>Plan</th>
-        <th>Price</th>
-        <th>Features</th>
-      </tr>
-      <tr>
-        <td>Basic</td>
-        <td>$10/month</td>
-        <td>Feature 1, Feature 2</td>
-      </tr>
-      <tr>
-        <td>Pro</td>
-        <td>$20/month</td>
-        <td>Feature 1, Feature 2, Feature 3</td>
-      </tr>
-    </table>
+    <p>Simple pricing plans starting at $9.99/month</p>
   </div>
   <div class="footer">
     <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
