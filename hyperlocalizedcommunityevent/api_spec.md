@@ -1,0 +1,1 @@
+GET /events?location={latitude},{longitude}&radius={meters}&category={category}&date={YYYY-MM-DD}
