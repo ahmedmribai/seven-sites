@@ -1,0 +1,1 @@
+1. Clone the LocalEventFinder repository from GitHub. 2. Install dependencies using 'npm install'. 3. Configure API keys for event sources in the .env file. 4. Start the server using 'npm start'. 5. Access the API endpoint at 'http://localhost:3000/events' with the required query parameters.
