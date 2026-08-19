@@ -1,0 +1,1 @@
+['1. Install FiveSilentFailure Python package', '2. Import the Sentinel middleware in your agent code', '3. Configure callback URLs for failure alerts', '4. Call validate() after critical operations', '5. Implement recovery handlers for your preferred failure modes']
