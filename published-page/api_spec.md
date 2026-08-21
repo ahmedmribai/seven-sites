@@ -1,0 +1,1 @@
+{'endpoint': '/analyze-pain-points', 'method': 'POST', 'request_body': {'feedback': ['array of raw customer feedback strings'], 'api_key': 'your_api_key'}, 'response': {'prioritized_pain_points': [{'pain_point': 'string', 'severity_score': 'number', 'business_impact_score': 'number', 'actionable_insight': 'string'}]}}
