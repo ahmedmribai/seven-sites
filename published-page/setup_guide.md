@@ -1,0 +1,1 @@
+['1. Sign up for PainPrioritize and obtain your API key.', '2. Integrate the API endpoint `/analyze-pain-points` into your application or workflow.', '3. Send a POST request with an array of customer feedback strings and your API key.', '4. Receive a JSON response with prioritized pain points and actionable insights.']
