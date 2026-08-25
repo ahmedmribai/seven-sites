@@ -1,0 +1,100 @@
+{
+  "name": "FiveSilentFailure ToolGuard Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "functionName": "pipInstall"
+      },
+      "name": "Install ToolGuard",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        100,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.stripe.com/v1/orders"
+      },
+      "name": "Get Order ID from Stripe",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        300,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "verifyOrderIDExistsInDB",
+        "input": "={{$json[\"id\"]}}"
+      },
+      "name": "Verify Order ID Exists in DB",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        500,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "condition": "doesApiResponseBodyMatchIntent",
+          "value": "true"
+        }
+      },
+      "name": "Check API Response Body",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        700,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "rule": "refundAmountLessThanOrEqualToOriginalPayment"
+      },
+      "name": "Apply Custom Rule",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        900,
+        100
+      ]
+    }
+  ],
+  "connections": {
+    "Install ToolGuard": {
+      "main": [
+        [
+          "Get Order ID from Stripe"
+        ]
+      ]
+    },
+    "Get Order ID from Stripe": {
+      "main": [
+        [
+          "Verify Order ID Exists in DB"
+        ]
+      ]
+    },
+    "Verify Order ID Exists in DB": {
+      "main": [
+        [
+          "Check API Response Body"
+        ]
+      ]
+    },
+    "Check API Response Body": {
+      "main": [
+        [
+          "Apply Custom Rule"
+        ]
+      ]
+    },
+    "Apply Custom Rule": {}
+  }
+}
