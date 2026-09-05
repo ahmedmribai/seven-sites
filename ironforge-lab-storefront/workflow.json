@@ -1,0 +1,42 @@
+{
+  "name": "Ironforge Lab Storefront Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "url": "https://api.shopify.com/v1/vulnerability-alerts",
+        "options": {}
+      },
+      "name": "Fetch Vulnerability Alerts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "and": [
+            {
+              "value1": "={{$json["
+            },
+            "operation"
+          ]
+        }
+      }
+    },
+    "name"
+  ]
+}
