@@ -1,0 +1,284 @@
+{
+  "name": "Inflact Safe-Mode MVP",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "instagram-safe-mode-webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "id": "webhook-trigger-1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.actionType }}",
+              "operation": "equal",
+              "value2": "follow"
+            }
+          ]
+        }
+      },
+      "name": "Check Action Type",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        470,
+        300
+      ],
+      "id": "check-action-type-1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.instagram.com/v1.0/graph/actions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{$json.body.accessToken}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "action",
+              "value": "={{ $json.body.actionType }}"
+            },
+            {
+              "name": "target_id",
+              "value": "={{ $json.body.targetId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Compliance API Engine",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        720,
+        200
+      ],
+      "id": "compliance-api-engine-1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://internal.device-farm.io/api/v1/dispatch-hitl",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "DEV_FARM_SECRET_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "account_id",
+              "value": "={{ $json.body.accountId }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.body.actionType }}"
+            },
+            {
+              "name": "target_user",
+              "value": "={{ $json.body.targetId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "HITL Device Farm Dispatch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        720,
+        400
+      ],
+      "id": "hitl-dispatch-1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.headers['x-instagram-ratelimit-remaining'] || 100 }}",
+              "operation": "smallerEqual",
+              "value2": 10
+            }
+          ]
+        }
+      },
+      "name": "Real-Time Risk Monitor",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        960,
+        200
+      ],
+      "id": "risk-monitor-1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.sendgrid.com/v3/mail/send",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer SG.MOCK_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "personalizations",
+              "value": "[{\"to\": [{\"email\": \"user@example.com\"}]}]"
+            },
+            {
+              "name": "from",
+              "value": "safety@inflact-saas.com"
+            },
+            {
+              "name": "subject",
+              "value": "WARNING: Safe-Mode Auto-Paused Due to Rate Limit"
+            },
+            {
+              "name": "content",
+              "value": "[{\"type\": \"text/plain\", \"value\": \"We detected a risky pattern on your Instagram account. Safe-Mode has auto-paused further actions to protect you.\"}]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Alert User & Auto-Pause",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1180,
+        100
+      ],
+      "id": "alert-user-1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"success\", \"message\": \"Action processed securely through Safe-Mode.\" } }}",
+        "options": {}
+      },
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        350
+      ],
+      "id": "respond-webhook-1"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Action Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Action Type": {
+      "main": [
+        [
+          {
+            "node": "HITL Device Farm Dispatch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Compliance API Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compliance API Engine": {
+      "main": [
+        [
+          {
+            "node": "Real-Time Risk Monitor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HITL Device Farm Dispatch": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Real-Time Risk Monitor": {
+      "main": [
+        [
+          {
+            "node": "Alert User & Auto-Pause",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert User & Auto-Pause": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
