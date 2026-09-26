@@ -24,7 +24,8 @@ body{background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--font);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit}
 img{max-width:100%;display:block}
-.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+@media (min-width:1680px){.wrap{max-width:1400px}body{font-size:18px}}
 h1,h2,h3{font-weight:600;letter-spacing:-.025em;line-height:1.12;text-wrap:balance}
 p{text-wrap:pretty}
 .mono{font-family:var(--mono);font-feature-settings:"zero" 1}
@@ -128,7 +129,9 @@ body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opa
   overflow:hidden;border:1px solid #27272a}
 .code-top{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #27272a;
   font:500 12px var(--mono);color:#a1a1aa}
-.code pre{margin:0;padding:20px 22px;font:13.5px/1.75 var(--mono);overflow:auto;max-height:460px;tab-size:4}
+.code pre{margin:0;padding:20px 22px;font:13.5px/1.75 var(--mono);overflow:hidden;max-height:460px;tab-size:4;
+  -webkit-mask-image:linear-gradient(to right,#000 86%,transparent),linear-gradient(to bottom,#000 80%,transparent);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to right,#000 86%,transparent),linear-gradient(to bottom,#000 80%,transparent);mask-composite:intersect}
 .tk-k{color:#fdba74}.tk-s{color:#bbf7d0}.tk-c{color:#71717a;font-style:italic}.tk-n{color:#93c5fd}
 .tk-f{color:#fafafa;font-weight:500}
 
@@ -202,6 +205,10 @@ body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opa
 .cell::after{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(to top,rgba(12,12,14,.88) 0%,rgba(12,12,14,.35) 45%,rgba(12,12,14,0) 70%)}
 .cell-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:28px}
+/* the large tile reads top-down, so the object in its photograph stays visible below the copy */
+.cell.big::after{background:linear-gradient(to bottom,rgba(12,12,14,.86) 0%,rgba(12,12,14,.4) 38%,rgba(12,12,14,0) 60%)}
+.cell.big .cell-body{top:0;bottom:auto;padding:36px}
+.cell.big .frame img{object-position:50% 72%}
 .cell .kind{font:500 12px var(--mono);color:#fdba74}
 .cell h3{font-size:26px;margin:8px 0 6px;color:#fafafa}
 .cell.big h3{font-size:clamp(28px,3vw,38px)}
