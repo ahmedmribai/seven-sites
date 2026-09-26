@@ -202,7 +202,7 @@ body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opa
   .sheet{height:400px;padding:26px 24px 0}
 }
 
-.hero{position:relative;padding:92px 0 24px}
+.hero{position:relative;padding:92px 0 24px;overflow-x:clip}   /* the glow must not widen the page */
 .hero::before{content:"";position:absolute;right:-10%;top:-30%;width:900px;height:760px;pointer-events:none;
   background:radial-gradient(closest-side,rgba(96,165,250,.09),transparent)}
 .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:72px;align-items:center}
