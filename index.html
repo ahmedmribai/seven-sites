@@ -86,6 +86,19 @@ p{text-wrap:pretty}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+/* grain: breaks digital flatness; fixed and inert so it never repaints on scroll */
+body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* image frames: every photograph on the site sits in one of these */
+.frame{position:relative;overflow:hidden;border-radius:var(--r-box);background:var(--sunken);isolation:isolate}
+.frame img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;will-change:transform}
+@media (prefers-color-scheme:dark){.frame img{filter:brightness(.82) contrast(1.05)}}
+.glass{background:color-mix(in srgb,var(--surface) 72%,transparent);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent),inset 0 1px 0 rgba(255,255,255,.35),var(--shadow-lg)}
+@media (prefers-reduced-transparency:reduce){.glass{background:var(--surface);backdrop-filter:none}}
+
 .hero{padding:56px 0 24px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-items:center}
 .kind{font:500 13px var(--mono);color:var(--accent)}
@@ -149,41 +162,68 @@ p{text-wrap:pretty}
 .price small{display:block;color:var(--muted);margin:10px 0 22px;font-size:14px}
 .price .fine{font-size:13px;color:var(--muted);margin-top:16px}
 
+/* with a cover photograph: the real preview floats over its corner */
+.art{position:relative;padding:0 0 88px 56px}
+.art>.frame{aspect-ratio:4/3.5;box-shadow:var(--shadow-lg)}
+.art .float{position:absolute;left:0;bottom:0;width:68%;z-index:2}
+.art .sheet{height:330px;padding:26px 28px 0}.art .sheet h3{font-size:20px}.art .sheet p{font-size:14px}
+.art .stack{padding:0 0 16px 16px}.art .stack::before{inset:16px 16px 0 0}
+.art .code pre{max-height:300px;font-size:12.5px;padding:16px 18px}
+
 @media (max-width:900px){
+  .art{padding:0}.art .float{position:relative;left:auto;bottom:auto;width:94%;margin:-96px 0 0 auto}
   .hero-grid,.qa,.buy{grid-template-columns:minmax(0,1fr)}
   .hero-grid{gap:44px}.qa{gap:8px}.qa .sec-head{position:static}
   .toc{grid-template-columns:minmax(0,1fr)}.buy{padding:28px}.sec{padding-top:84px}
   .sheet{height:400px;padding:26px 24px 0}
 }
 
-.hero{padding:72px 0 16px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}
-.hero h1{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:20px;max-width:13ch}
-.lede{font-size:19px;color:var(--muted);max-width:42ch}
-.actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:32px}
-.collage{position:relative;min-height:520px}
-.collage>:first-child{width:82%;margin-left:auto}
-.collage>:nth-child(2){position:absolute;left:0;top:190px;width:56%}
-.collage .code pre{max-height:340px;font-size:12.5px}
-.collage .sheet{height:300px;padding:22px 24px 0}.collage .sheet h3{font-size:18px;margin-bottom:10px}
-.collage .sheet p{font-size:13.5px}.collage .stack{padding:0 0 14px 14px}.collage .stack::before{inset:14px 14px 0 0}
-.sec{padding-top:112px}
-.sec-head{max-width:620px;margin-bottom:12px}
-.sec-head h2{font-size:clamp(1.8rem,3vw,2.4rem)}
-.sec-head p{color:var(--muted);margin-top:10px}
-.prod{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:center;
-  padding:48px 0;border-top:1px solid var(--line)}
-.prod:first-of-type{border-top:0}
-.prod .kind{font:500 13px var(--mono);color:var(--accent)}
-.prod h3{font-size:30px;margin:10px 0 12px}.prod h3 a{text-decoration:none}
-.prod p{color:var(--muted);max-width:48ch}
-.prod-meta{display:flex;gap:22px;align-items:center;margin-top:24px}
-.prod-meta b{font:500 22px var(--mono);letter-spacing:-.02em}
-.thumb{display:block;text-decoration:none}
-.thumb .sheet{height:300px;padding:24px 26px 0}.thumb .sheet h3{font-size:19px;margin-bottom:10px}
-.thumb .sheet p{font-size:14px}.thumb .stack{padding:0 0 16px 16px}.thumb .stack::before{inset:16px 16px 0 0}
-.thumb .code pre{max-height:300px;font-size:12.5px;padding:16px 18px}
-.posts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 48px;margin-top:28px}
+.hero{padding:56px 0 8px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:64px;align-items:center}
+.hero h1{font-size:clamp(2.7rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.04em;margin-bottom:22px;max-width:12ch}
+.lede{font-size:19px;color:var(--muted);max-width:40ch}
+.actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:34px}
+.hero-art{position:relative;padding:0 0 64px 40px}
+.hero-art .frame{aspect-ratio:4/4.2;box-shadow:var(--shadow-lg)}
+.hero-photo img{object-position:30% 62%}
+.floater{position:absolute;left:0;bottom:0;width:72%;z-index:2}
+.floater .code pre{max-height:240px;font-size:12.5px;padding:16px 18px}
+.sec{padding-top:120px}
+.sec-head{max-width:640px;margin-bottom:36px}
+.sec-head h2{font-size:clamp(2rem,3.4vw,2.8rem);letter-spacing:-.03em}
+.sec-head p{color:var(--muted);margin-top:12px;font-size:18px}
+.bento{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-auto-rows:310px;gap:20px}
+.cell{position:relative;display:block;overflow:hidden;border-radius:var(--r-box);text-decoration:none;
+  color:#fafafa;background:#18181b;isolation:isolate}
+.cell.big{grid-row:span 2}
+.cell .frame{position:absolute;inset:0;border-radius:0}
+.cell .frame img{transition:scale .9s var(--ease)}
+.cell:hover .frame img{scale:1.04}
+.cell::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(12,12,14,.88) 0%,rgba(12,12,14,.35) 45%,rgba(12,12,14,0) 70%)}
+.cell-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:28px}
+.cell .kind{font:500 12px var(--mono);color:#fdba74}
+.cell h3{font-size:26px;margin:8px 0 6px;color:#fafafa}
+.cell.big h3{font-size:clamp(28px,3vw,38px)}
+.cell p{color:#d4d4d8;font-size:15px;max-width:44ch;margin-bottom:14px}
+.cell-meta{display:flex;align-items:center;gap:16px;font-size:15px}
+.cell-meta b{font:500 20px var(--mono)}
+.cell-meta span{text-decoration:underline;text-decoration-color:rgba(250,250,250,.4);text-underline-offset:4px}
+.inside{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:64px;align-items:start}
+.inside .sec-head{position:sticky;top:120px}
+.inside-art{display:grid;gap:28px}
+.inside-art>:nth-child(2){margin-left:12%}
+.inside-art .sheet{height:340px}
+.band{position:relative;min-height:540px;display:grid;align-items:end;overflow:hidden;
+  border-radius:var(--r-box);color:#fafafa;isolation:isolate;box-shadow:var(--shadow-lg)}
+.band .frame{position:absolute;inset:0;border-radius:0}
+.band::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(12,12,14,.82),rgba(12,12,14,.15) 70%)}
+.band-body{position:relative;z-index:2;padding:0 56px 60px}
+.band h2{font-size:clamp(2.2rem,4.6vw,4rem);letter-spacing:-.04em;line-height:1.04;max-width:16ch}
+.band p{color:#e4e4e7;font-size:18px;max-width:46ch;margin:16px 0 26px}
+.band .link{color:#fafafa;text-decoration-color:rgba(250,250,250,.45)}
+.posts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 48px}
 .post{display:block;padding:24px 0;border-top:1px solid var(--line);text-decoration:none}
 .post small{font:500 12px var(--mono);color:var(--accent)}
 .post h3{font-size:19px;letter-spacing:-.015em;margin:8px 0 6px;transition:color .2s}
@@ -194,11 +234,13 @@ p{text-wrap:pretty}
 .made li b{display:block;font-size:18px;margin-bottom:4px}.made li p{color:var(--muted)}
 .empty{color:var(--muted);padding:24px 0}
 @media (max-width:900px){
-  .hero-grid,.prod,.made,.posts{grid-template-columns:minmax(0,1fr)}
-  .hero-grid{gap:40px}.prod{gap:28px}.made{gap:16px}.sec{padding-top:84px}
-  .collage{min-height:0}.collage>:first-child{width:100%}.collage>:nth-child(2){display:none}
+  .hero-grid,.inside,.made,.posts,.bento{grid-template-columns:minmax(0,1fr)}
+  .hero-grid{gap:36px}.hero-art{padding:0}.floater{position:relative;left:auto;bottom:auto;width:94%;margin:-96px 0 0 0}.sec{padding-top:88px}
+  .bento{grid-auto-rows:340px}.cell.big{grid-row:span 1}
+  .inside .sec-head{position:static}.inside-art>:nth-child(2){margin-left:0}
+  .band{min-height:460px}.band-body{padding:0 24px 36px}
 }
-</style></head><body><a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap nav-in"><a class="mark" href="/"><i aria-hidden="true"></i>Agents Kit</a><nav class="nav-links" aria-label="Site"><a href="/#products">Products</a><a href="/#articles">Articles</a><a href="/about/">About</a></nav><div class="nav-cta"><a class="btn btn-sm" href="/#products">Browse products</a></div></div></header><main id="main"><section class="hero"><div class="wrap hero-grid"><div><h1 class="enter" style="--i:0">Small products that do one job well</h1><p class="lede enter" style="--i:1">Guides and tested Python libraries from an AI studio. Each one is checked before it goes on sale, and each page shows exactly what you get.</p><div class="actions enter" style="--i:2"><a class="btn" href="#products">Browse products</a><a class="link" href="/about/">How products are made</a></div></div><div class="collage" aria-hidden="true"><figure class="code enter" style="--i:2"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> triggerline <span class="tk-k">import</span> ManualTrigger, PrintAction, Workflow
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap nav-in"><a class="mark" href="/"><i aria-hidden="true"></i>Agents Kit</a><nav class="nav-links" aria-label="Site"><a href="/#products">Products</a><a href="/#articles">Articles</a><a href="/about/">About</a></nav><div class="nav-cta"><a class="btn btn-sm" href="/#products">Browse products</a></div></div></header><main id="main"><section class="hero"><div class="wrap hero-grid"><div><h1 class="enter" style="--i:0">Small products that do one job well</h1><p class="lede enter" style="--i:1">Guides and tested Python libraries from an AI studio. Each one is checked before it goes on sale, and each page shows exactly what you get.</p><div class="actions enter" style="--i:2"><a class="btn" href="#products">Browse products</a><a class="link" href="/about/">How products are made</a></div></div><div class="hero-art enter" style="--i:2" aria-hidden="true"><div class="frame hero-photo" data-parallax><img src="/assets/hero.webp" alt="Frosted glass panes of different sizes leaning against a matte wall in a warm-grey studio, a wedge of burnt-orange light falling across them" width="1600" height="1000" decoding="async" fetchpriority="high" data-speed="0.1" data-zoom></div><div class="floater" data-speed="-0.18"><figure class="code"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> triggerline <span class="tk-k">import</span> ManualTrigger, PrintAction, Workflow
 
 <span class="tk-k">def</span> <span class="tk-f">main</span>():
     trigger = ManualTrigger(<span class="tk-s">&quot;Hello from Triggerline!&quot;</span>)
@@ -207,7 +249,7 @@ p{text-wrap:pretty}
     workflow.execute()
 
 <span class="tk-k">if</span> __name__ == <span class="tk-s">&quot;__main__&quot;</span>:
-    main()</code></pre></figure><div class="stack enter" style="--i:2"><article class="sheet" aria-label="Preview of the first page"><div class="sheet-top"><span>Chapter 1</span><span>AI Photo Editor</span></div><h3>The AI Scripting Architecture Overview</h3><p>Modern Photoshop does not run AI‑enhanced scripts as opaque black boxes; instead, it treats them as ordinary JavaScript or TypeScript programs that are executed inside a tightly controlled sandbox, with the Adobe Sensei AI engine exposed through a set of well‑defined API calls.</p></article></div></div></div></section><section class="sec" id="products"><div class="wrap"><div class="sec-head reveal"><h2>3 products</h2><p>Open any of them to read the first page or the real code.</p></div><article class="prod reveal"><div><div class="kind">Python library</div><h3><a href="https://get-agents-kit.com/theseexampleswhile/index.html">Triggerline</a></h3><p>Triggerline is a pure-Python library: A tiny, pure‑Python workflow engine for building “trigger → action” automations offline.</p><div class="prod-meta"><b>$29</b><a class="link" href="https://get-agents-kit.com/theseexampleswhile/index.html">View Triggerline</a></div></div><a class="thumb" href="https://get-agents-kit.com/theseexampleswhile/index.html" tabindex="-1" aria-hidden="true"><figure class="code"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> triggerline <span class="tk-k">import</span> ManualTrigger, PrintAction, Workflow
+    main()</code></pre></figure></div></div></div></section><section class="sec" id="products"><div class="wrap"><div class="sec-head reveal"><h2>3 products</h2><p>One payment each. Delivered by email, with a 14-day refund.</p></div><div class="bento"><a class="cell big reveal" href="https://get-agents-kit.com/theseexampleswhile/index.html"><div class="frame " data-parallax><img src="/assets/cover-64.webp" alt="A frosted-glass lever rests atop a brushed-aluminum base, its weight triggering a matte-paper chain that unfurls into a precise, geometric f" width="1200" height="900" decoding="async" loading="lazy" data-speed="0.08" data-zoom></div><div class="cell-body"><div class="kind">Python library</div><h3>Triggerline</h3><p>Triggerline is a pure-Python library: A tiny, pure‑Python workflow engine for building “trigger → action” automations offline.</p><div class="cell-meta"><b>$29</b><span>View Triggerline</span></div></div></a><a class="cell reveal" href="https://get-agents-kit.com/fivesilentfailure/index.html"><div class="frame " data-parallax><img src="/assets/cover-41.webp" alt="A frosted glass hourglass suspended mid-air above a brushed-aluminum base, its sand funneling into a mirrored matte-paper vessel beneath" width="1200" height="900" decoding="async" loading="lazy" data-speed="0.08" data-zoom></div><div class="cell-body"><div class="kind">Python library</div><h3>ToolGuard</h3><div class="cell-meta"><b>$49</b><span>View ToolGuard</span></div></div></a><a class="cell reveal" href="https://get-agents-kit.com/aiphotoeditor/index.html"><div class="frame " data-parallax><img src="/assets/cover-50.webp" alt="A frosted glass prism refracts light through stacked matte paper layers, casting shifting geometric shadows onto a brushed-aluminum grid, re" width="1200" height="900" decoding="async" loading="lazy" data-speed="0.08" data-zoom></div><div class="cell-body"><div class="kind">Guide</div><h3>AI Photo Editor</h3><div class="cell-meta"><b>$49</b><span>View AI Photo Editor</span></div></div></a></div></div></section><section class="sec"><div class="wrap inside"><div class="sec-head reveal"><h2>Look inside before you buy</h2><p>Every product page shows the real thing: the first page of a guide, the actual code of a library, and counts taken from the files you receive.</p></div><div class="inside-art" data-parallax><div data-speed="0.06"><div class="stack"><article class="sheet" aria-label="Preview of the first page"><div class="sheet-top"><span>Chapter 1</span><span>AI Photo Editor</span></div><h3>The AI Scripting Architecture Overview</h3><p>Modern Photoshop does not run AI‑enhanced scripts as opaque black boxes; instead, it treats them as ordinary JavaScript or TypeScript programs that are executed inside a tightly controlled sandbox, with the Adobe Sensei AI engine exposed through a set of well‑defined API calls.</p><p>For an ExtendScript (.jsx) script, Photoshop loads the Adobe ExtendScript Toolkit (ESTK) compatibility layer that ships with the application.</p></article></div></div><div data-speed="-0.08"><figure class="code"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> triggerline <span class="tk-k">import</span> ManualTrigger, PrintAction, Workflow
 
 <span class="tk-k">def</span> <span class="tk-f">main</span>():
     trigger = ManualTrigger(<span class="tk-s">&quot;Hello from Triggerline!&quot;</span>)
@@ -216,15 +258,4 @@ p{text-wrap:pretty}
     workflow.execute()
 
 <span class="tk-k">if</span> __name__ == <span class="tk-s">&quot;__main__&quot;</span>:
-    main()</code></pre></figure></a></article><article class="prod reveal"><div><div class="kind">Python library</div><h3><a href="https://get-agents-kit.com/fivesilentfailure/index.html">ToolGuard</a></h3><p>ToolGuard is a tiny, pure‑Python library that lets you validate the actions an autonomous AI agent (or any code) is about to take before they are executed. It works with generic “tool calls” - e.g.</p><div class="prod-meta"><b>$49</b><a class="link" href="https://get-agents-kit.com/fivesilentfailure/index.html">View ToolGuard</a></div></div><a class="thumb" href="https://get-agents-kit.com/fivesilentfailure/index.html" tabindex="-1" aria-hidden="true"><figure class="code"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> toolguard <span class="tk-k">import</span> Guard, guarded, RequiredKeysRule, TypesRule, BoundsRule
-
-<span class="tk-c"># Define a simple rule set for a fake &quot;charge&quot; tool.</span>
-my_guard = Guard(
-    {
-        <span class="tk-s">&quot;charge&quot;</span>: [
-            RequiredKeysRule([<span class="tk-s">&quot;amount&quot;</span>, <span class="tk-s">&quot;currency&quot;</span>]),
-            TypesRule({<span class="tk-s">&quot;amount&quot;</span>: <span class="tk-s">&quot;int&quot;</span>, <span class="tk-s">&quot;currency&quot;</span>: <span class="tk-s">&quot;str&quot;</span>}),
-            BoundsRule(<span class="tk-s">&quot;amount&quot;</span>, min=<span class="tk-n">1</span>),  <span class="tk-c"># amount must be a positive integer</span>
-        ]
-    }
-)</code></pre></figure></a></article><article class="prod reveal"><div><div class="kind">Guide</div><h3><a href="https://get-agents-kit.com/aiphotoeditor/index.html">AI Photo Editor</a></h3><p>The AI Photo Editor guide details the AI scripting architecture overview for modern Photoshop.</p><div class="prod-meta"><b>$49</b><a class="link" href="https://get-agents-kit.com/aiphotoeditor/index.html">View AI Photo Editor</a></div></div><a class="thumb" href="https://get-agents-kit.com/aiphotoeditor/index.html" tabindex="-1" aria-hidden="true"><div class="stack"><article class="sheet" aria-label="Preview of the first page"><div class="sheet-top"><span>Chapter 1</span><span>AI Photo Editor</span></div><h3>The AI Scripting Architecture Overview</h3><p>Modern Photoshop does not run AI‑enhanced scripts as opaque black boxes; instead, it treats them as ordinary JavaScript or TypeScript programs that are executed inside a tightly controlled sandbox, with the Adobe Sensei AI engine exposed through a set of well‑defined API calls.</p></article></div></a></article></div></section><section class="sec" id="articles"><div class="wrap"><div class="sec-head reveal"><h2>Latest writing</h2></div><div class="posts reveal"><a class="post" href="https://get-agents-kit.com/theseexampleswhile/blog/how-solopreneurs-save-5-hours-a-week-without-zapier-or-any-c/"><small>Triggerline</small><h3>How Solopreneurs Save 5+ Hours a Week Without Zapier (or Any Coding)</h3><p>A simple, affordable way to automate repetitive tasks between your 3 - 5 business tools - without overpaying for complex workflow tools.</p></a><a class="post" href="https://get-agents-kit.com/personalizededucationpaths/blog/why-your-data-science-skills-are-stagnant-and-how-to-fix-it-/"><small>SkillSync</small><h3>Why Your Data Science Skills Are Stagnant (And How to Fix It Without Another 40-Hour Course)</h3><p>Traditional online courses are built for completion certificates, not for the rapid upskilling working data scientists actually need to bridge specific tech gaps.</p></a><a class="post" href="https://get-agents-kit.com/personalizededucationpaths/blog/why-your-data-science-skills-are-stagnating-and-how-to-fix-i/"><small>SkillSync</small><h3>Why Your Data Science Skills Are Stagnating (And How to Fix It Without Watching 40 Hours of Video)</h3><p>Traditional data science courses are built for academic pacing, not career survival - here is how to target your exact skill gaps in 10 minutes a day.</p></a><a class="post" href="https://get-agents-kit.com/whiledirectprofitability/blog/how-therapists-in-california-can-avoid-bbs-compliance-fines-/"><small>RegCheck AI</small><h3>How Therapists in California Can Avoid BBS Compliance Fines Without Hiring a Lawyer</h3><p>A practical guide to tracking California Board of Behavioral Sciences deadlines, continuing education requirements, and audit-ready record keeping on a solopreneur budget.</p></a><a class="post" href="https://get-agents-kit.com/meteredagentfacingapi/blog/how-to-stop-openai-api-bill-shocks-before-they-hit-your-cred/"><small>TokenGuard</small><h3>How to Stop OpenAI API Bill Shocks Before They Hit Your Credit Card</h3><p>A practical guide for developer-tool startups on monitoring token usage, catching runaway loops, and setting up automated real-time alerts without over-engineering.</p></a><a class="post" href="https://get-agents-kit.com/meteredagentfacingapi/blog/why-your-openai-api-bill-just-tripled-and-how-to-stop-it-bef/"><small>TokenGuard</small><h3>Why Your OpenAI API Bill Just Tripled (And How to Stop It Before It Happens)</h3><p>A practical guide for developers on how to catch LLM token bill shocks in real-time before they drain your budget.</p></a></div></div></section><section class="sec"><div class="wrap made reveal"><div class="sec-head"><h2>How a product gets here</h2></div><ol><li><b>Found in real complaints</b><p>Seven, our AI system, reads forums, reviews and comments for problems people keep describing.</p></li><li><b>Built and measured</b><p>A library must install and pass its tests in an isolated sandbox. A guide must pass a depth check.</p></li><li><b>Checked against its page</b><p>A product is sold only while its page describes exactly what the buyer receives. Anything that fails is taken off sale.</p></li></ol></div></section></main><footer class="foot"><div class="wrap foot-in"><a class="mark" href="/"><i aria-hidden="true"></i>Agents Kit</a><a href="/#products">Products</a><a href="/about/">About</a><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a><a href="/refunds/">Refunds</a><span>&copy; 2026 Agents Kit</span></div></footer><script>(function(){var e=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){e.forEach(function(n){n.classList.add('in')});return}var o=new IntersectionObserver(function(s){s.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});e.forEach(function(n){o.observe(n)})})();</script></body></html>
+    main()</code></pre></figure></div></div></div></section><section class="sec"><div class="wrap"><div class="band reveal"><div class="frame " data-parallax><img src="/assets/band.webp" alt="A long row of tall frosted glass panels receding into soft shadow, the nearest panel edge-lit by a thin line of burnt-orange light" width="1200" height="675" decoding="async" loading="lazy" data-speed="0.14" data-zoom></div><div class="band-body"><h2>Checked before it goes on sale</h2><p>Libraries must install and pass their tests in an isolated sandbox. Guides must pass a depth check. Pages must match what you receive.</p><a class="link" href="/about/">How products are made</a></div></div></div></section><section class="sec" id="articles"><div class="wrap"><div class="sec-head reveal"><h2>Latest writing</h2></div><div class="posts reveal"><a class="post" href="https://get-agents-kit.com/theseexampleswhile/blog/how-solopreneurs-save-5-hours-a-week-without-zapier-or-any-c/"><small>Triggerline</small><h3>How Solopreneurs Save 5+ Hours a Week Without Zapier (or Any Coding)</h3><p>A simple, affordable way to automate repetitive tasks between your 3 - 5 business tools - without overpaying for complex workflow tools.</p></a><a class="post" href="https://get-agents-kit.com/personalizededucationpaths/blog/why-your-data-science-skills-are-stagnant-and-how-to-fix-it-/"><small>SkillSync</small><h3>Why Your Data Science Skills Are Stagnant (And How to Fix It Without Another 40-Hour Course)</h3><p>Traditional online courses are built for completion certificates, not for the rapid upskilling working data scientists actually need to bridge specific tech gaps.</p></a><a class="post" href="https://get-agents-kit.com/personalizededucationpaths/blog/why-your-data-science-skills-are-stagnating-and-how-to-fix-i/"><small>SkillSync</small><h3>Why Your Data Science Skills Are Stagnating (And How to Fix It Without Watching 40 Hours of Video)</h3><p>Traditional data science courses are built for academic pacing, not career survival - here is how to target your exact skill gaps in 10 minutes a day.</p></a><a class="post" href="https://get-agents-kit.com/whiledirectprofitability/blog/how-therapists-in-california-can-avoid-bbs-compliance-fines-/"><small>RegCheck AI</small><h3>How Therapists in California Can Avoid BBS Compliance Fines Without Hiring a Lawyer</h3><p>A practical guide to tracking California Board of Behavioral Sciences deadlines, continuing education requirements, and audit-ready record keeping on a solopreneur budget.</p></a><a class="post" href="https://get-agents-kit.com/meteredagentfacingapi/blog/how-to-stop-openai-api-bill-shocks-before-they-hit-your-cred/"><small>TokenGuard</small><h3>How to Stop OpenAI API Bill Shocks Before They Hit Your Credit Card</h3><p>A practical guide for developer-tool startups on monitoring token usage, catching runaway loops, and setting up automated real-time alerts without over-engineering.</p></a><a class="post" href="https://get-agents-kit.com/meteredagentfacingapi/blog/why-your-openai-api-bill-just-tripled-and-how-to-stop-it-bef/"><small>TokenGuard</small><h3>Why Your OpenAI API Bill Just Tripled (And How to Stop It Before It Happens)</h3><p>A practical guide for developers on how to catch LLM token bill shocks in real-time before they drain your budget.</p></a></div></div></section><section class="sec"><div class="wrap made reveal"><div class="sec-head"><h2>How a product gets here</h2></div><ol><li><b>Found in real complaints</b><p>Seven, our AI system, reads forums, reviews and comments for problems people keep describing.</p></li><li><b>Built and measured</b><p>A library must install and pass its tests in an isolated sandbox. A guide must pass a depth check.</p></li><li><b>Checked against its page</b><p>A product is sold only while its page describes exactly what the buyer receives. Anything that fails is taken off sale.</p></li></ol></div></section></main><footer class="foot"><div class="wrap foot-in"><a class="mark" href="/"><i aria-hidden="true"></i>Agents Kit</a><a href="/#products">Products</a><a href="/about/">About</a><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a><a href="/refunds/">Refunds</a><span>&copy; 2026 Agents Kit</span></div></footer><script>(function(){var e=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){e.forEach(function(n){n.classList.add('in')});return}var o=new IntersectionObserver(function(s){s.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});e.forEach(function(n){o.observe(n)})})();</script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script><script>window.addEventListener('load',function(){if(!window.gsap||!window.ScrollTrigger||matchMedia('(prefers-reduced-motion: reduce)').matches)return;gsap.registerPlugin(ScrollTrigger);document.querySelectorAll('[data-speed]').forEach(function(el){var s=parseFloat(el.dataset.speed)||.1,t=el.closest('[data-parallax]')||el;gsap.fromTo(el,{yPercent:-s*40},{yPercent:s*40,ease:'none',scrollTrigger:{trigger:t,start:'top bottom',end:'bottom top',scrub:.6}})});document.querySelectorAll('[data-zoom]').forEach(function(el){gsap.fromTo(el,{scale:1.08},{scale:1,ease:'none',scrollTrigger:{trigger:el.parentNode,start:'top bottom',end:'bottom center',scrub:.6}})})});</script></body></html>
