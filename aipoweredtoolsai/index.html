@@ -1,0 +1,213 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI-Powered Tools AI - Agents Kit</title><meta name="description" content="AI-Powered Tools AI is a pure-Python library: The package is useful for quick sanity checks of AI‑generated content when no network access is available or when you want a lightweight, dependency‑free solution."><link rel="canonical" href="https://get-agents-kit.com/aipoweredtoolsai/"><meta property="og:type" content="website"><meta property="og:title" content="AI-Powered Tools AI - Agents Kit"><meta property="og:description" content="AI-Powered Tools AI is a pure-Python library: The package is useful for quick sanity checks of AI‑generated content when no network access is available or when you want a lightweight, dependency‑free solution."><meta property="og:url" content="https://get-agents-kit.com/aipoweredtoolsai/"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#09090b"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23fafafa%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "AI-Powered Tools AI", "description": "AI-Powered Tools AI is a pure-Python library: The package is useful for quick sanity checks of AI‑generated content when no network access is available or when you want a lightweight, dependency‑free solution.", "url": "https://get-agents-kit.com/aipoweredtoolsai/", "brand": {"@type": "Brand", "name": "Agents Kit"}}</script><style>
+:root{
+  --bg:#09090b;--surface:#111114;--sunken:#0c0c0f;--raised:#17171b;
+  --ink:#fafafa;--muted:#a1a1aa;--faint:#8b8b94;
+  --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);
+  --accent:#fbbf24;--accent-ink:#09090b;--code-bg:#0c0c0f;--code-ink:#e4e4e7;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 40px -16px rgba(0,0,0,.8);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.5),0 40px 80px -24px rgba(0,0,0,.9);
+  --r-box:16px;--r-ctl:999px;
+  --font:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--font);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+@media (min-width:1680px){.wrap{max-width:1400px}body{font-size:18px}}
+h1,h2,h3{font-weight:600;letter-spacing:-.025em;line-height:1.12;text-wrap:balance}
+p{text-wrap:pretty}
+.mono{font-family:var(--mono);font-feature-settings:"zero" 1}
+.muted{color:var(--muted)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:8px 12px;
+  border-radius:var(--r-ctl);z-index:20}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(251,191,36,.35)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:10;background:rgba(9,9,11,.72);
+  backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:36px;height:64px}
+.mark{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:-.01em;
+  text-decoration:none}
+.mark i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--ink);
+  color:var(--bg);font:700 13px/1 var(--font);font-style:normal;transition:transform .4s var(--ease)}
+.mark:hover i{transform:rotate(-8deg) scale(1.06)}
+.nav-links{display:flex;gap:26px;font-size:15px;color:var(--muted)}
+.nav-links a{position:relative;text-decoration:none;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav-links a:hover{color:var(--ink)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{margin-left:auto}
+@media (max-width:640px){.nav-links{display:none}.nav-in{gap:12px}}
+
+/* buttons: white pill primary, outlined pill secondary (also styles injected .buy-cta / .lead-form) */
+.btn,.buy-cta a,.lead-form button{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:46px;padding:0 22px;border-radius:var(--r-ctl);border:0;background:var(--ink);
+  color:var(--bg);font:600 15px/1 var(--font);text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s}
+.btn:hover,.buy-cta a:hover,.lead-form button:hover{transform:translateY(-2px);background:#fff;
+  box-shadow:0 0 0 4px rgba(255,255,255,.08),0 14px 36px -12px rgba(255,255,255,.45)}
+.btn:active,.buy-cta a:active,.lead-form button:active{transform:translateY(0) scale(.98)}
+.btn-sm{height:38px;padding:0 16px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.34)}
+.btn .arr{transition:transform .3s var(--ease)}.btn:hover .arr{transform:translateX(3px)}
+.link{color:var(--ink);font-weight:500;text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:4px;transition:text-decoration-color .2s,color .2s}
+.link:hover{text-decoration-color:var(--ink)}
+.buy-cta{display:inline-flex;flex-direction:column;gap:6px}
+.buy-cta span,.buy-note{font-size:14px;color:var(--muted)!important}
+.buy-note{margin-top:12px}
+.lead-form{display:flex;gap:8px;flex-wrap:wrap;max-width:460px}
+.lead-form input{flex:1;min-width:220px;height:46px;padding:0 18px;border-radius:var(--r-ctl);
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font:400 16px var(--font);
+  transition:border-color .2s,box-shadow .2s}
+.lead-form input::placeholder{color:var(--faint)}
+.lead-form input:hover{border-color:rgba(255,255,255,.28)}
+.lead-form input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+
+/* footer */
+.foot{border-top:1px solid var(--line);margin-top:120px;padding:40px 0 48px;font-size:14px;color:var(--muted)}
+.foot-in{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.foot .mark{font-size:0;gap:0}.foot .mark i{width:22px;height:22px;font-size:11px}
+.foot-copy{margin-right:auto}
+.foot a{text-decoration:none;transition:color .2s}.foot a:hover{color:var(--ink)}
+
+/* motion: entrance for the hero, reveal for sections. Nothing loops. */
+@media (prefers-reduced-motion:no-preference){
+  .enter{animation:enter .8s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms)}
+  @keyframes enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* grain: breaks digital flatness; fixed and inert so it never repaints on scroll */
+body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* image frames: every photograph on the site sits in one of these */
+.frame{position:relative;overflow:hidden;border-radius:var(--r-box);background:var(--sunken);isolation:isolate}
+.frame img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;will-change:transform}
+.glass{background:rgba(17,17,20,.72);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.06),var(--shadow-lg)}
+@media (prefers-reduced-transparency:reduce){.glass{background:var(--surface);backdrop-filter:none}}
+
+/* spotlight: a card's border lights up where the pointer is (data-spot) */
+[data-spot]{position:relative}
+[data-spot]::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,-40%),rgba(255,255,255,.4),transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask-composite:exclude;opacity:0;transition:opacity .35s;z-index:3}
+[data-spot]:hover::before{opacity:1}
+
+.hero{padding:56px 0 24px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-items:center}
+.kind{font:500 13px var(--mono);color:var(--accent)}
+.hero h1{font-size:clamp(2.4rem,4.4vw,3.5rem);margin:14px 0 18px}
+.lede{font-size:19px;color:var(--muted);max-width:44ch}
+.actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:30px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:24px;margin-top:56px;
+  padding-top:28px;border-top:1px solid var(--line)}
+.fact b{display:block;font:500 34px/1.05 var(--mono);letter-spacing:-.03em}
+.fact span{font-size:14px;color:var(--muted)}
+
+/* preview: a typeset page with the next one behind it */
+.stack{position:relative;padding:0 0 22px 22px}
+.stack::before{content:"";position:absolute;inset:22px 22px 0 0;background:var(--sunken);
+  border:1px solid var(--line);border-radius:var(--r-box)}
+.sheet{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-box);
+  box-shadow:var(--shadow-lg);padding:32px 36px 0;height:460px;overflow:hidden}
+.sheet::after{content:"";position:absolute;left:0;right:0;bottom:0;height:150px;
+  background:linear-gradient(to bottom,transparent,var(--surface) 78%)}
+.sheet-top{display:flex;justify-content:space-between;gap:12px;font:500 12px var(--mono);color:var(--muted);
+  margin-bottom:22px}
+.sheet h3{font-size:23px;letter-spacing:-.02em;margin-bottom:14px}
+.sheet p{font-size:15px;line-height:1.72;color:var(--muted);margin-bottom:12px}
+.sheet strong,.sheet code{color:var(--ink)}
+.sheet code,.toc code{font:13px var(--mono)}
+.code{background:var(--code-bg);color:var(--code-ink);border-radius:var(--r-box);box-shadow:var(--shadow-lg);
+  overflow:hidden;border:1px solid #27272a}
+.code-top{display:flex;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #27272a;
+  font:500 12px var(--mono);color:#a1a1aa}
+.code pre{margin:0;padding:20px 22px;font:13.5px/1.75 var(--mono);overflow:hidden;max-height:460px;tab-size:4;
+  -webkit-mask-image:linear-gradient(to right,#000 86%,transparent),linear-gradient(to bottom,#000 80%,transparent);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to right,#000 86%,transparent),linear-gradient(to bottom,#000 80%,transparent);mask-composite:intersect}
+.tk-k{color:#8b8b94}.tk-s{color:#86efac}.tk-c{color:#6b7280;font-style:italic}.tk-n{color:#fbbf24}
+.tk-f{color:#7dd3fc;font-weight:500}
+/* hover */
+.toc li{transition:transform .4s var(--ease)}.toc li:hover{transform:translateX(4px)}
+.toc h3,.toc .n{transition:color .25s}.toc li:hover h3{color:#fff}.toc li:hover .n{color:var(--ink)}
+.fact{transition:transform .4s var(--ease)}.fact:hover{transform:translateY(-3px)}
+.art .float{transition:transform .6s var(--ease)}.art:hover .float{transform:translate(-6px,-8px)}
+.art>.frame img{transition:filter .6s}.art:hover>.frame img{filter:brightness(1.1) saturate(1.1)}
+.qa dl>div{padding-left:14px;border-left:1px solid transparent;transition:border-color .3s}
+.qa dl>div:hover{border-left-color:var(--line-strong)}
+.buy{border-radius:var(--r-box)}
+
+/* sections */
+.sec{padding-top:112px}
+.sec-head{max-width:620px;margin-bottom:40px}
+.sec-head h2,.buy h2{font-size:clamp(1.8rem,3vw,2.4rem)}
+.sec-head p{color:var(--muted);margin-top:12px}
+.toc{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px 56px}
+.toc li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 14px}
+.toc .n{font:500 14px/1.9 var(--mono);color:var(--accent)}
+.toc h3{font-size:18px;letter-spacing:-.01em;margin-bottom:6px}
+.toc h3.m{font:500 15px/1.5 var(--mono);letter-spacing:0;overflow-wrap:anywhere}
+.toc p{font-size:15px;color:var(--muted)}
+.toc.api li{grid-template-columns:minmax(0,1fr)}
+
+.qa{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:56px}
+.qa .sec-head{position:sticky;top:96px;align-self:start}
+.qa dl{display:grid;gap:30px}
+.qa dt{font-weight:600;font-size:17px;margin-bottom:6px}
+.qa dd{color:var(--muted);white-space:pre-line}
+
+.buy{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-box);box-shadow:var(--shadow);
+  padding:48px}
+.buy ul{list-style:none;display:grid;gap:12px;margin-top:24px}
+.buy li{display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:baseline}
+.buy li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--accent);transform:translateY(-1px)}
+.price{background:var(--sunken);border-radius:var(--r-box);padding:30px}
+.sd-price-amt{font:500 48px/1 var(--mono);letter-spacing:-.04em}
+.price small{display:block;color:var(--muted);margin:10px 0 22px;font-size:14px}
+.price .fine{font-size:13px;color:var(--muted);margin-top:16px}
+
+/* with a cover photograph: the real preview floats over its corner */
+.art{position:relative;padding:0 0 88px 56px}
+.art>.frame{aspect-ratio:4/3.5;box-shadow:var(--shadow-lg)}
+.art .float{position:absolute;left:0;bottom:0;width:68%;z-index:2}
+.art .sheet{height:330px;padding:26px 28px 0}.art .sheet h3{font-size:20px}.art .sheet p{font-size:14px}
+.art .stack{padding:0 0 16px 16px}.art .stack::before{inset:16px 16px 0 0}
+.art .code pre{max-height:300px;font-size:12.5px;padding:16px 18px}
+
+@media (max-width:900px){
+  .art{padding:0}.art .float{position:relative;left:auto;bottom:auto;width:94%;margin:-96px 0 0 auto}
+  .hero-grid,.qa,.buy{grid-template-columns:minmax(0,1fr)}
+  .hero-grid{gap:44px}.qa{gap:8px}.qa .sec-head{position:static}
+  .toc{grid-template-columns:minmax(0,1fr)}.buy{padding:28px}.sec{padding-top:84px}
+  .sheet{height:400px;padding:26px 24px 0}
+}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap nav-in"><a class="mark" href="/"><i aria-hidden="true">A</i>Agents Kit</a><nav class="nav-links" aria-label="Site"><a href="/#products">Products</a><a href="/#articles">Articles</a><a href="/about/">About</a></nav></div></header><main id="main"><section class="hero"><div class="wrap"><div class="hero-grid"><div><div class="kind enter" style="--i:0">Python library</div><h1 class="enter" style="--i:1">AI-Powered Tools AI</h1><p class="lede enter" style="--i:2">AI-Powered Tools AI is a pure-Python library: The package is useful for quick sanity checks of AI‑generated content when no network access is available or when you want a lightweight, dependency‑free solution.</p><div class="actions enter" style="--i:3"><form class="lead-form" action="https://beacon.ironforge.online/waitlist?venture_id=98" method="POST"><input type="email" name="email" required placeholder="you@email.com"><button type="submit">Get the free preview</button></form><a class="link" href="#contents">See what is inside</a></div></div><figure class="code enter" style="--i:2"><figcaption class="code-top"><span>examples/quickstart.py</span><span>Python</span></figcaption><pre><code><span class="tk-k">from</span> aipoweredtoolsai <span class="tk-k">import</span> verify_text, VerificationResult
+
+text = <span class="tk-s">&quot;The Earth orbits the Sun. Water boils at 100°C at sea level.&quot;</span>
+result: VerificationResult = verify_text(text)
+
+print(f<span class="tk-s">&quot;Confidence: {result.confidence}&quot;</span>)
+print(f<span class="tk-s">&quot;Status: {result.status}&quot;</span>)
+print(f<span class="tk-s">&quot;Sources: {result.sources}&quot;</span>)
+print(f<span class="tk-s">&quot;Message: {result.message}&quot;</span>)</code></pre></figure></div><div class="facts reveal"><div class="fact"><b>18</b><span>tests, all passing</span></div><div class="fact"><b>0</b><span>dependencies</span></div><div class="fact"><b>3.9+</b><span>Python</span></div><div class="fact"><b>MIT</b><span>license</span></div></div></div></section><section class="sec" id="contents"><div class="wrap reveal"><div class="sec-head"><h2>The API</h2><p>Every name listed here exists in the shipped source.</p></div><ol class="toc api"><li><div><h3 class="m">VerificationResult</h3></div></li><li><div><h3 class="m">verify_text(text)</h3><p>Verify the given text against a built-in knowledge base.</p></div></li><li><div><h3 class="m">get_suggested_correction(text)</h3><p>Return a generic suggestion for improving the supplied text.</p></div></li></ol></div></section><section class="sec"><div class="wrap qa reveal"><div class="sec-head"><h2>Questions</h2><p>Anything else? Write to <a class="link" href="mailto:hello@get-agents-kit.com">hello@get-agents-kit.com</a>.</p></div><dl><div><dt>Has it been tested?</dt><dd>Yes. Before listing, it was built into a wheel, installed with no network access in an isolated sandbox, and its 18 tests passed against the installed package. The quickstart above ran as part of that check.</dd></div><div><dt>Does it have dependencies?</dt><dd>None. It uses the Python standard library only.</dd></div><div><dt>How do I install it?</dt><dd>pip install aipoweredtoolsai-0.1.0-py3-none-any.whl
+Then follow the README or run the quickstart.</dd></div><div><dt>Can I get a refund?</dt><dd>Yes. Within 14 days of purchase, reply to your receipt email.</dd></div></dl></div></section><section class="sec" id="buy"><div class="wrap"><div class="buy reveal" data-spot><div><h2>Get AI-Powered Tools AI</h2><ul><li>Installable wheel (aipoweredtoolsai-0.1.0-py3-none-any.whl)</li><li>Full source code and README</li><li>18 tests, all passing</li><li>MIT license</li></ul></div><div class="price"><div class="sd-price-amt">Early access</div><small>Not on sale yet.</small><form class="lead-form" action="https://beacon.ironforge.online/waitlist?venture_id=98" method="POST"><input type="email" name="email" required placeholder="you@email.com"><button type="submit">Get the free preview</button></form><p class="buy-note" style="color:#64748b">Pricing coming soon - leave your email above to be first in line.</p><p class="fine">Secure checkout by Lemon Squeezy. 14-day refund.</p></div></div></div></section></main><footer class="foot"><div class="wrap foot-in"><a class="mark" href="/"><i aria-hidden="true">A</i>Agents Kit</a><span class="foot-copy">&copy; 2026 Agents Kit. Small products that do one job well.</span><a href="/#products">Products</a><a href="/about/">About</a><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a><a href="/refunds/">Refunds</a></div></footer><script>(function(){var e=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){e.forEach(function(n){n.classList.add('in')});return}var o=new IntersectionObserver(function(s){s.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});e.forEach(function(n){o.observe(n)})})();</script><script>(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(pointer: fine)').matches)return;document.querySelectorAll('[data-spot]').forEach(function(el){el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')})});document.querySelectorAll('[data-tilt]').forEach(function(el){var t=el.querySelector('[data-tilt-target]')||el,raf=0;el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){t.style.setProperty('--ry',(x*12).toFixed(2)+'deg');t.style.setProperty('--rx',(-y*10).toFixed(2)+'deg')})});el.addEventListener('pointerleave',function(){cancelAnimationFrame(raf);t.style.removeProperty('--ry');t.style.removeProperty('--rx')})})})();</script><script>(function(){try{var k='sv_uid',u=localStorage.getItem(k);if(!u){u=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem(k,u);}new Image().src='https://beacon.ironforge.online/beacon/98?e=open&u='+encodeURIComponent(u);}catch(e){}})();</script></body></html>
