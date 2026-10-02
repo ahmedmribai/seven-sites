@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stop Breaking Your Logins: How to Fix Privacy Extension False Positives Without Sacrificing Security - Agents Kit</title><meta name="description" content="A practical guide to identifying essential cookies and restoring site functionality using heuristic-based whitelisting, not guesswork."><link rel="canonical" href="https://get-agents-kit.com/freebrowserextension/blog/stop-breaking-your-logins-how-to-fix-privacy-extension-false/"><meta property="og:type" content="website"><meta property="og:title" content="Stop Breaking Your Logins: How to Fix Privacy Extension False Positives Without Sacrificing Security - Agents Kit"><meta property="og:description" content="A practical guide to identifying essential cookies and restoring site functionality using heuristic-based whitelisting, not guesswork."><meta property="og:url" content="https://get-agents-kit.com/freebrowserextension/blog/stop-breaking-your-logins-how-to-fix-privacy-extension-false/"><meta name="twitter:card" content="summary"><meta name="theme-color" content="#09090b"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23fafafa%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Stop Breaking Your Logins: How to Fix Privacy Extension False Positives Without Sacrificing Security", "description": "A practical guide to identifying essential cookies and restoring site functionality using heuristic-based whitelisting, not guesswork.", "url": "https://get-agents-kit.com/freebrowserextension/blog/stop-breaking-your-logins-how-to-fix-privacy-extension-false/", "author": {"@type": "Organization", "name": "Agents Kit"}, "publisher": {"@type": "Organization", "name": "Agents Kit"}}</script><meta property="og:type" content="article"><style>
+:root{
+  --bg:#09090b;--surface:#111114;--sunken:#0c0c0f;--raised:#17171b;
+  --ink:#fafafa;--muted:#a1a1aa;--faint:#8b8b94;
+  --line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);
+  --accent:#fbbf24;--accent-ink:#09090b;--code-bg:#0c0c0f;--code-ink:#e4e4e7;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 16px 40px -16px rgba(0,0,0,.8);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.5),0 40px 80px -24px rgba(0,0,0,.9);
+  --r-box:16px;--r-ctl:999px;
+  --font:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--font);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+@media (min-width:1680px){.wrap{max-width:1400px}body{font-size:18px}}
+h1,h2,h3{font-weight:600;letter-spacing:-.025em;line-height:1.12;text-wrap:balance}
+p{text-wrap:pretty}
+.mono{font-family:var(--mono);font-feature-settings:"zero" 1}
+.muted{color:var(--muted)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:8px 12px;
+  border-radius:var(--r-ctl);z-index:20}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+::selection{background:rgba(251,191,36,.35)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:10;background:rgba(9,9,11,.72);
+  backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:36px;height:64px}
+.mark{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:-.01em;
+  text-decoration:none}
+.mark i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--ink);
+  color:var(--bg);font:700 13px/1 var(--font);font-style:normal;transition:transform .4s var(--ease)}
+.mark:hover i{transform:rotate(-8deg) scale(1.06)}
+.nav-links{display:flex;gap:26px;font-size:15px;color:var(--muted)}
+.nav-links a{position:relative;text-decoration:none;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav-links a:hover{color:var(--ink)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{margin-left:auto}
+@media (max-width:640px){.nav-links{display:none}.nav-in{gap:12px}}
+
+/* buttons: white pill primary, outlined pill secondary (also styles injected .buy-cta / .lead-form) */
+.btn,.buy-cta a,.lead-form button{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:46px;padding:0 22px;border-radius:var(--r-ctl);border:0;background:var(--ink);
+  color:var(--bg);font:600 15px/1 var(--font);text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s}
+.btn:hover,.buy-cta a:hover,.lead-form button:hover{transform:translateY(-2px);background:#fff;
+  box-shadow:0 0 0 4px rgba(255,255,255,.08),0 14px 36px -12px rgba(255,255,255,.45)}
+.btn:active,.buy-cta a:active,.lead-form button:active{transform:translateY(0) scale(.98)}
+.btn-sm{height:38px;padding:0 16px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.34)}
+.btn .arr{transition:transform .3s var(--ease)}.btn:hover .arr{transform:translateX(3px)}
+.link{color:var(--ink);font-weight:500;text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:4px;transition:text-decoration-color .2s,color .2s}
+.link:hover{text-decoration-color:var(--ink)}
+.buy-cta{display:inline-flex;flex-direction:column;gap:6px}
+.buy-cta span,.buy-note{font-size:14px;color:var(--muted)!important}
+.buy-note{margin-top:12px}
+.lead-form{display:flex;gap:8px;flex-wrap:wrap;max-width:460px}
+.lead-form input{flex:1;min-width:220px;height:46px;padding:0 18px;border-radius:var(--r-ctl);
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font:400 16px var(--font);
+  transition:border-color .2s,box-shadow .2s}
+.lead-form input::placeholder{color:var(--faint)}
+.lead-form input:hover{border-color:rgba(255,255,255,.28)}
+.lead-form input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+
+/* footer */
+.foot{border-top:1px solid var(--line);margin-top:120px;padding:40px 0 48px;font-size:14px;color:var(--muted)}
+.foot-in{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.foot .mark{font-size:0;gap:0}.foot .mark i{width:22px;height:22px;font-size:11px}
+.foot-copy{margin-right:auto}
+.foot a{text-decoration:none;transition:color .2s}.foot a:hover{color:var(--ink)}
+
+/* motion: entrance for the hero, reveal for sections. Nothing loops. */
+@media (prefers-reduced-motion:no-preference){
+  .enter{animation:enter .8s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms)}
+  @keyframes enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+/* grain: breaks digital flatness; fixed and inert so it never repaints on scroll */
+body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* image frames: every photograph on the site sits in one of these */
+.frame{position:relative;overflow:hidden;border-radius:var(--r-box);background:var(--sunken);isolation:isolate}
+.frame img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;will-change:transform}
+.glass{background:rgba(17,17,20,.72);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.06),var(--shadow-lg)}
+@media (prefers-reduced-transparency:reduce){.glass{background:var(--surface);backdrop-filter:none}}
+
+/* spotlight: a card's border lights up where the pointer is (data-spot) */
+[data-spot]{position:relative}
+[data-spot]::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,-40%),rgba(255,255,255,.4),transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask-composite:exclude;opacity:0;transition:opacity .35s;z-index:3}
+[data-spot]:hover::before{opacity:1}
+
+.art-wrap{max-width:720px;margin:0 auto;padding:72px 24px 0}
+.art-back{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--font);color:var(--muted);
+  text-decoration:none;padding:6px 12px;border:1px solid var(--line-strong);border-radius:999px;
+  transition:color .2s,border-color .2s,background .2s}
+.art-back:hover{color:var(--ink);border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.05)}
+.art-back b{font-weight:400;transition:transform .3s var(--ease)}.art-back:hover b{transform:translateX(-3px)}
+.art-head h1{font-size:clamp(2.1rem,4.4vw,3.2rem);font-weight:700;letter-spacing:-.04em;line-height:1.06;margin:24px 0 18px}
+.sd-article-dek{font-size:20px;line-height:1.55;color:var(--muted)}
+.art-meta{display:flex;gap:14px;margin-top:22px;padding-bottom:30px;border-bottom:1px solid var(--line);
+  font:500 13px var(--mono);color:var(--faint)}
+.sd-prose{padding-top:34px;font-size:18px;line-height:1.78;color:#d4d4d8}
+.sd-prose .sd-h2{font-size:26px;font-weight:600;letter-spacing:-.025em;line-height:1.25;color:var(--ink);margin:1.9em 0 .6em}
+.sd-prose p{margin:0 0 1.15em}
+.sd-prose>.sd-h2:first-child{margin-top:.2em}
+.sd-prose strong{color:var(--ink)}
+.sd-prose code{font:15px var(--mono);background:var(--raised);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:#e4e4e7}
+.sd-prose a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px}
+.sd-prose a:hover{text-decoration-color:var(--ink)}
+.art-cta{margin-top:56px;padding:34px;border-radius:var(--r-box);border:1px solid var(--line);
+  background:linear-gradient(160deg,#16161a,#0e0e11);display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:20px;transition:border-color .3s}
+.art-cta:hover{border-color:var(--line-strong)}
+.art-cta h2{font-size:22px;letter-spacing:-.02em}.art-cta p{color:var(--muted);font-size:15px;margin-top:4px}
+.art-related{margin-top:56px}
+.art-related h2,.hub h2{font:500 12px var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--faint);
+  display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.art-related h2::before,.hub h2::before{content:"";width:30px;height:1px;background:var(--line-strong)}
+.rows a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;padding:18px 0;
+  border-top:1px solid var(--line);text-decoration:none}
+.rows b{font-size:17px;font-weight:600;letter-spacing:-.015em;color:#e4e4e7;transition:color .25s}
+.rows span{grid-column:1/-1;font-size:14.5px;color:var(--faint)}
+.rows i{grid-row:1;grid-column:2;align-self:center;font-style:normal;color:var(--faint);
+  transition:transform .4s var(--ease),color .25s}
+.rows a:hover b{color:#fff}.rows a:hover i{transform:translateX(6px);color:var(--ink)}
+.hub{max-width:820px;margin:0 auto;padding:72px 24px 0}
+.hub h1{font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:700;letter-spacing:-.045em;margin:18px 0 12px}
+.hub>p{color:var(--muted);font-size:18px;margin-bottom:34px}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap nav-in"><a class="mark" href="/"><i aria-hidden="true">A</i>Agents Kit</a><nav class="nav-links" aria-label="Site"><a href="/#products">Products</a><a href="/#articles">Articles</a><a href="/about/">About</a></nav><div class="nav-cta"><a class="btn btn-sm" href="../../index.html">View SmartWhitelist</a></div></div></header><main id="main"><article class="art-wrap sd-article"><header class="art-head"><a class="art-back" href="../../index.html"><b>&lsaquo;</b>SmartWhitelist</a><h1>Stop Breaking Your Logins: How to Fix Privacy Extension False Positives Without Sacrificing Security</h1><p class="sd-article-dek">A practical guide to identifying essential cookies and restoring site functionality using heuristic-based whitelisting, not guesswork.</p><div class="art-meta"><span>October 2026</span><span>4 min read</span></div></header><div class="sd-prose"><h2 class="sd-h2">The &#x27;Broken Site&#x27; Paradox: Why Strict Privacy Tools Break Essential Functionality</h2><p>Imagine landing on a login page or an online checkout cart, only to watch it fail to load - your session cookies blocked by a privacy extension’s strict heuristics. The page stalls, forms disappear, and your progress vanishes. This isn’t a bug in the privacy tool; it’s a deliberate conflict between its &quot;block all&quot; default and the site’s functional requirements. Without session cookies, authentication fails, carts reset, and dynamic content - like personalized dashboards or saved preferences - collapses entirely. The user isn’t left with an error message; they’re left with a broken experience, forced to either abandon the site or manually whitelist cookies they don’t fully trust.</p><p>The process of fixing this manually is time-consuming and error-prone. A user might open their browser’s developer tools, inspect the network tab, and sift through blocked requests to identify the critical cookies - perhaps <code>sessionid</code> for logins or <code>cart_abc123</code> for checkouts. They’d then have to manually whitelist each one, hoping they haven’t missed a dependency. If they guess wrong, the site might still break, requiring another round of troubleshooting. Worse, this trial-and-error approach isn’t scalable: every site has unique cookie requirements, and memorizing or documenting them for each domain is impractical.</p><p>SmartWhitelist eliminates this friction by automating the detection and whitelisting of only the essential cookies. When a user lands on a broken page - one where forms fail to submit or content refuses to load - the extension scans for missing cookies tied to core functionality. It then presents a one-click prompt: <em>&quot;This site is broken because these cookies are blocked. Allow SmartWhitelist to whitelist only the minimal set needed to restore functionality?&quot;</em> The user reviews the suggested cookies (e.g., <code>auth_token</code> for logins, <code>XSRF-TOKEN</code> for security checks) and approves them with a single click. The whitelist is site-specific and persistent, so the fix persists across future visits - no repeated manual intervention required. This approach ensures users regain access without sacrificing privacy, as the extension only targets cookies proven critical to the site’s operation.</p><h2 class="sd-h2">Manual Whitelisting is Unscalable: The Cost of Guessing</h2><p>Manual whitelisting is a paradox of privacy tools: it promises control but demands an impossible mental load. When a privacy extension like uBlock Origin or Privacy Badger blocks a cookie critical to site functionality - such as the <code>sessionid</code> that keeps you logged into your email or the <code>cart_abc123</code> that holds your online purchases - the user is forced to guess which cookies are safe to unblock. The problem isn’t just the time spent toggling settings; it’s the inherent risk of misjudgment. Over-whitelisting undoes the purpose of privacy tools by exposing you to unnecessary tracking, while under-whitelisting leaves essential services inaccessible, forcing you to either abandon the site or surrender to the default of accepting all cookies.</p><p>The human brain is terrible at memorizing cookie names, let alone distinguishing between benign session tokens and malicious trackers. With thousands of unique cookie patterns across the web - from <code>XSRF-TOKEN</code> in local development environments to <code>user_prefs</code> in dynamic dashboards - no user can reliably identify which ones are essential. Even developers, who understand the technical underpinnings of authentication flows, struggle to maintain an up-to-date whitelist across hundreds of sites. The result is frustration: a cycle of trial and error where broken logins, abandoned carts, and inaccessible dashboards become the norm.</p><p>SmartWhitelist eliminates this guessing game. When you land on a broken page - one where your login fails or your cart disappears - the extension automatically scans for missing cookies and presents a minimal set of whitelisting options. For example, if your session expires, SmartWhitelist detects the <code>sessionid</code> cookie and asks: <em>&quot;This site is broken because your session cookie is blocked. Allow us to whitelist only the essential cookie to restore functionality?&quot;</em> You review the suggestion (e.g., <code>sessionid=abc123</code>) and approve it with one click. The whitelist is site-specific and persistent, so you won’t be prompted again unless you clear it manually. This approach ensures you only unblock what’s necessary, reducing false positives while avoiding the pitfalls of manual guesswork. The friction of privacy isn’t just about choosing between security and convenience - it’s about avoiding the chaos of broken interactions entirely.</p><h2 class="sd-h2">Heuristic Analysis vs. AI: Why Pattern Matching is Safer for Your Data</h2><p>SmartWhitelist avoids the pitfalls of opaque AI by relying on <strong>deterministic heuristic rules</strong> - a transparent, rules-based system that identifies and whitelists only the cookies essential for functionality. Unlike AI models that require user data to train and improve, SmartWhitelist works entirely on the client side, using a hardcoded list of known patterns (e.g., <code>sessionid</code>, <code>cart_abc123</code>, <code>XSRF-TOKEN</code>) that correlate with critical site operations. This approach eliminates guesswork: when a user lands on a broken page - such as a login form that fails to recognize them or a shopping cart that vanishes - SmartWhitelist scans the page for missing cookies matching these patterns. If it detects a likely culprit (e.g., a blocked <code>auth_token</code>), it presents the user with a clear, one-click option to whitelist just that cookie, restoring functionality without exposing unnecessary data.</p><p>The process is auditable and reversible. Users see exactly which cookies are being whitelisted and can review them before applying the fix. Whitelists are site-specific and persistent, meaning once a user approves a rule for <code>example.com</code>, it won’t apply to unrelated domains. Even in the Pro tier, where automation is expanded, the underlying logic remains heuristic-driven - no user data is sent to a server unless explicitly opted into for analytics (and only then for aggregated feedback, not individual behavior). This design ensures privacy isn’t sacrificed for convenience: users retain control, and the system never makes decisions based on unseen algorithms or external inputs.</p><p>The result is a tool that bridges the gap between strict privacy and practical usability. Instead of forcing users to manually whitelist cookies or accept all tracking, SmartWhitelist applies targeted fixes with minimal friction. The heuristic rules are updated only through open-source contributions or explicit user feedback, keeping the system both predictable and adaptable without compromising transparency.</p></div><section class="art-cta" id="cta" data-spot><div><h2>SmartWhitelist</h2><p>The product this article comes from.</p></div><a class="btn" href="../../index.html">See how it works <span class="arr">&rsaquo;</span></a></section><section class="art-related"><h2>More from SmartWhitelist</h2><div class="rows"><a href="../why-your-privacy-tools-break-logins-and-how-to-fix-it-withou/index.html"><b>Why Your Privacy Tools Break Logins (And How to Fix It Without Disabling Them)</b><i>&rsaquo;</i></a><a href="../stop-manually-whitelisting-how-to-fix-broken-logins-and-cart/index.html"><b>Stop Manually Whitelisting: How to Fix Broken Logins and Carts Without Sacrificing Privacy</b><i>&rsaquo;</i></a><a href="../stop-manually-whitelisting-cookies-how-to-fix-broken-sites-w/index.html"><b>Stop Manually Whitelisting Cookies: How to Fix Broken Sites Without Sacrificing Privacy</b><i>&rsaquo;</i></a></div></section></article></main><footer class="foot"><div class="wrap foot-in"><a class="mark" href="/"><i aria-hidden="true">A</i>Agents Kit</a><span class="foot-copy">&copy; 2026 Agents Kit. Small products that do one job well.</span><a href="/#products">Products</a><a href="/about/">About</a><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a><a href="/refunds/">Refunds</a></div></footer><script>(function(){var e=document.querySelectorAll('.reveal');if(!('IntersectionObserver' in window)){e.forEach(function(n){n.classList.add('in')});return}var o=new IntersectionObserver(function(s){s.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}})},{rootMargin:'0px 0px -10% 0px'});e.forEach(function(n){o.observe(n)})})();</script><script>(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(pointer: fine)').matches)return;document.querySelectorAll('[data-spot]').forEach(function(el){el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')})});document.querySelectorAll('[data-tilt]').forEach(function(el){var t=el.querySelector('[data-tilt-target]')||el,raf=0;el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){t.style.setProperty('--ry',(x*12).toFixed(2)+'deg');t.style.setProperty('--rx',(-y*10).toFixed(2)+'deg')})});el.addEventListener('pointerleave',function(){cancelAnimationFrame(raf);t.style.removeProperty('--ry');t.style.removeProperty('--rx')})})})();</script><script>(function(){try{var k='sv_uid',u=localStorage.getItem(k);if(!u){u=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem(k,u);}new Image().src='https://beacon.ironforge.online/beacon/102?e=open&u='+encodeURIComponent(u);}catch(e){}})();</script></body></html>
